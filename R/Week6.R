@@ -18,9 +18,7 @@ citations_tbl <- tibble(line = 1:length(citations_txt), cite = citations_txt) %>
   mutate(year = gsub("[\\(\\)]", "", str_extract(cite, "\\(?(18|19|20)[:digit:]{2}\\.?\\)?"))) %>%
   mutate(page_start = gsub("([-?]\\d+)|(\\d*\\s)", "", str_extract(cite, "(?![^\\(\\d*\\)]*\\))(\\d+[-?]\\d+)|(\\s\\d\\d?\\d?\\s\\d+)"))) %>%
   mutate(perf_ref = str_detect(cite, fixed("performance", ignore_case = TRUE))) %>%
-  mutate(title = gsub("\\d*[\\.\\)\\s\\,]+?", "", str_extract(cite, "\\d{4}[ab]?[\\s\\.\\,\\)]+?[A-Z][a-z][a-zA-Z\\s\\,\\?\\-\\/\\:\\&]+[\\.\\?]"))) %>%
+  mutate(title = gsub("\\d+\\,?[a-z]?([.),\\s]+)?", "", str_extract(cite, "\\d{4}\\,?[a-z]?[\\s\\.\\,\\)]+?[A-Z][a-z][a-zA-Z\\s\\,\\?\\-\\/\\:\\&]{22,}[\\.\\?]"))) %>%
   mutate(cite = str_replace_all(cite, "<U+FEED>", ""))  %>% 
   mutate(first_author = str_extract(cite, "(\\*|[:alpha:]|\\-|\\s)+[\\,\\s]?([A-Z\\.\\,\\s]+)?([A-Z\\.\\,\\s]+)?([A-Z][\\.\\,\\s]+)"))
-
-   
 
